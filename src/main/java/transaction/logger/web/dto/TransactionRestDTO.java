@@ -7,4 +7,7 @@ import lombok.ToString;
 @Builder
 @Data
 @ToString
-public class TransactionRestDTO { }
+public class TransactionRestDTO {
+    private long timestamp;
+    private double amount;
+}

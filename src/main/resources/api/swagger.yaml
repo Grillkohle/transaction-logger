@@ -17,11 +17,12 @@ definitions:
     properties:
       amount:
         type: number
+        format: double
         description: |
           The transaction amount in decimal format.
         example: 17.01
       timestamp:
-        type: integer
+        type: long
         description: |
           The timestamp of the transaction, in UNIX epoch millis format at UTC time.
     required: 
