@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import transaction.logger.cache.TransactionCache;
 import transaction.logger.web.TransactionRestDTO;
+import java.time.Instant;
 
 @Service
 @Slf4j
@@ -24,7 +25,7 @@ public class TransactionService {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);    
         }
         
-        if (System.currentTimeMillis() - transactionRestDTO.getTimestamp() > ONE_MINUTE){
+        if (Instant.now().toEpochMilli() - transactionRestDTO.getTimestamp() > ONE_MINUTE){
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
         
