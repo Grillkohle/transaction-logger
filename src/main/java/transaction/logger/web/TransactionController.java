@@ -27,8 +27,10 @@ public class TransactionController {
 
     @RequestMapping(name = "transactions", method = RequestMethod.POST)
     public ResponseEntity<Void> logTransaction(@RequestBody final TransactionRestDTO transactionRestDTO) {
+        if (transactionRestDTO == null){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
-        log.info("Received transaction: {}", transactionRestDTO);
         return transactionService.handleIncomingTransaction(transactionRestDTO);
     }
 }
