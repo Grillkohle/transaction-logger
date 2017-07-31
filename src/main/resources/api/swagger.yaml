@@ -1,0 +1,86 @@
+swagger: '2.0'
+info:
+  title: Transaction Logger API
+  version: "0.0.1"
+
+schemes: [https]
+
+basePath: /
+
+definitions:
+  transaction:
+    type: object
+    description: |
+      A transaction object represents a monetary transaction,
+      which involves a specified amount being transferred at a
+      specific point in time.
+    properties:
+      amount:
+        type: number
+        description: |
+          The transaction amount in decimal format.
+        example: 17.01
+      timestamp:
+        type: integer
+        description: |
+          The timestamp of the transaction, in UNIX epoch millis format at UTC time.
+    required: 
+      - amount
+      - timestamp
+      
+  Error:
+    description: |
+      a standardized problem description, fitting the definition
+      of application/problem+json in
+      https://tools.ietf.org/html/draft-nottingham-http-problem-07.
+    type: object
+    properties:
+      type:
+        type: string
+        format: uri
+        example: 'http://httpstatus.es/503'
+      status:
+        type: integer
+        format: int32
+        example: 503
+      title:
+        type: string
+        example: 'Service Unavailable'
+      detail:
+        type: string
+        example: 'Connection to database timed out'
+      instance:
+        type: string
+        format: uri
+    required:
+     - type
+
+responses:
+  internal_error:
+    description: Internal server error.
+    schema:
+      $ref: "#/definitions/Error"
+  temporary_error:
+    description: Service unavailable (temporarily).
+    schema:
+      $ref: "#/definitions/Error"
+
+paths:
+  /transactions:
+    post:
+      parameters: 
+          - name: transaction
+            description: The definition of the transaction
+            in: body
+            required: true
+            schema:
+              $ref: "#/definitions/transaction"
+      produces:
+        - application/problem+json
+      responses:
+        201:
+          description: |
+            Transaction was successfully created.
+        204:
+          description: |
+            Transaction was accepted, even though it was older than 60 seconds.
