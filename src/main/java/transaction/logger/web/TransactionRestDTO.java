@@ -1,4 +1,4 @@
-package web.dto;
+package transaction.logger.web;
 
 import lombok.Builder;
 import lombok.Data;
