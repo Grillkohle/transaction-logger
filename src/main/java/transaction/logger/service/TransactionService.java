@@ -17,7 +17,10 @@ public class TransactionService {
     }
     
     public ResponseEntity<Void> handleIncomingTransaction(final TransactionRestDTO transactionRestDTO){
+        if (transactionRestDTO == null || transactionRestDTO.getAmount() <= 0 || transactionRestDTO.getTimestamp() <= 0L){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         
-        return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(HttpStatus.BAD_GATEWAY);
     }
 }

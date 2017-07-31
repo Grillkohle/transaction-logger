@@ -39,7 +39,7 @@ public class TransactionControllerTest {
         final ResponseEntity<Void> response = transactionController.logTransaction(transactionRestDTO);
 
         assertNotNull(response);
-        assertEquals(response.getStatusCode(), HttpStatus.CREATED);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
     }
 
     @Test
@@ -54,7 +54,7 @@ public class TransactionControllerTest {
         final ResponseEntity<Void> response = transactionController.logTransaction(transactionRestDTO);
 
         assertNotNull(response);
-        assertEquals(response.getStatusCode(), HttpStatus.ACCEPTED);
+        assertEquals(HttpStatus.ACCEPTED, response.getStatusCode());
     }
     
     @Test
@@ -66,7 +66,6 @@ public class TransactionControllerTest {
         final ResponseEntity<Void> response = transactionController.logTransaction(transactionRestDTO);
 
         assertNotNull(response);
-        assertEquals(response.getStatusCode(), HttpStatus.BAD_REQUEST);
-        
+        assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
     }
 }
