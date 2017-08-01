@@ -1,6 +1,7 @@
 package transaction.logger.service;
 
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -15,6 +16,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static transaction.logger.service.TransactionService.ONE_MINUTE;
 
+@Ignore
 public class TransactionServiceTest {
     private static final long TWO_MINUTES = ONE_MINUTE * 2L;
     
