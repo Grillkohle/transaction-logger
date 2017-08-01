@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import transaction.logger.cache.CacheUpdateThread;
 import transaction.logger.cache.TransactionCache;
+import transaction.logger.web.StatisticsRestDTO;
 import transaction.logger.web.TransactionRestDTO;
 
 import java.time.Duration;
@@ -42,5 +43,9 @@ public class TransactionService {
         new CacheUpdateThread(transactionCache, amount, timestamp).run();
         
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+    
+    public ResponseEntity<StatisticsRestDTO> getStatistics(){
+        return new ResponseEntity<>(transactionCache.getStatistics(), HttpStatus.OK);
     }
 }
