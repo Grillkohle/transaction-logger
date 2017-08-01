@@ -20,15 +20,44 @@ definitions:
         format: double
         description: |
           The transaction amount in decimal format.
-        example: 17.01
       timestamp:
-        type: long
+        type: number
+        format: long
         description: |
           The timestamp of the transaction, in UNIX epoch millis format at UTC time.
     required: 
       - amount
       - timestamp
-      
+  statistics:
+    type: object
+    description: |
+      A statistical summary object that contains statistics of transactions handled within the last 60 seconds.
+    properties:
+      min:
+        type: number
+        format: double
+        description: |
+          Of the transactions logged within the last 60 seconds, this is the amount of the transaction with the lowest amount.
+      max:
+        type: number
+        format: double
+        description: |
+          Of the transactions logged within the last 60 seconds, this is the amount of the transaction with the highest amount.
+      sum:
+        type: number
+        format: double
+        description: | 
+          The sum of all transaction amounts of the last 60 seconds.
+      avg:
+        type: number
+        format: double
+        description: | 
+          The average of all transaction amounts of the last 60 seconds.
+      count:
+        type: number
+        format: long
+        description: | 
+          The number of transactions that occured within the last 60 seconds.
   Error:
     description: |
       a standardized problem description, fitting the definition
@@ -75,13 +104,19 @@ paths:
             in: body
             required: true
             schema:
-              $ref: "#/definitions/transaction"
-      produces:
-        - application/problem+json
+              $ref: '#/definitions/transaction'
       responses:
         201:
           description: |
             Transaction was successfully created.
         204:
           description: |
-            Transaction was accepted, even though it was older than 60 seconds.
+            Transaction was accepted even though it was older than 60 seconds.
+  /statistics:
+    get:
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: '#/definitions/statistics'
+    
