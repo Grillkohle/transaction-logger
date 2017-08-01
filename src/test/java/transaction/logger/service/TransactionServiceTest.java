@@ -9,11 +9,15 @@ import org.springframework.http.ResponseEntity;
 import transaction.logger.cache.TransactionCache;
 import transaction.logger.web.TransactionRestDTO;
 
+import java.time.Duration;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static transaction.logger.service.TransactionService.ONE_MINUTE;
 
 public class TransactionServiceTest {
-    private static final long TWO_MINUTES = 2L * 60L * 1000L;
+    private static final long TWO_MINUTES = ONE_MINUTE * 2L;
+    
     @Mock
     private TransactionCache transactionCacheMock;
     
