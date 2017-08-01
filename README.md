@@ -2,7 +2,7 @@
 
 This service logs transactions and provides some statistics about the transactions that have been logged within the last 60 seconds.
 
-The API is defined in Swagger format, copy+paste into http://editor.swagger.io/ for better reading.
+The API is defined in Swagger 2.0 format at `src/main/resources/api/swagger.yaml`, copy+paste into http://editor.swagger.io/ for better reading.
 
 Notes about the implementation: 
 * The Error definition wasn't implemented.
