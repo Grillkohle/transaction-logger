@@ -33,4 +33,9 @@ public class TransactionController {
 
         return transactionService.handleIncomingTransaction(transactionRestDTO);
     }
+    
+    @RequestMapping(name = "statistics", method = RequestMethod.GET)
+    public ResponseEntity<StatisticsRestDTO> getStatistics(){
+        return transactionService.getStatistics();
+    }
 }

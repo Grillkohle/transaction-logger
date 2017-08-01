@@ -6,7 +6,7 @@ import transaction.logger.web.TransactionRestDTO;
 import static transaction.logger.service.TransactionService.ONE_MINUTE;
 
 @Slf4j
-public class CacheUpdateThread implements Runnable {
+public class CacheUpdateThread extends Thread {
     private final TransactionCache cache;
     private final double amount;
     private final long timestamp;

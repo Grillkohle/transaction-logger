@@ -40,7 +40,7 @@ public class TransactionService {
         transactionCache.cacheTransaction(timestamp, amount);
         
         // Could probably better be done with a thread pool
-        new CacheUpdateThread(transactionCache, amount, timestamp).run();
+        new CacheUpdateThread(transactionCache, amount, timestamp).start();
         
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
