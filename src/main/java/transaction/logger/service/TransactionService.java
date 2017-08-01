@@ -21,6 +21,7 @@ public class TransactionService {
     
     public ResponseEntity<Void> handleIncomingTransaction(final TransactionRestDTO transactionRestDTO){
         if (transactionRestDTO.getAmount() <= 0 || transactionRestDTO.getTimestamp() <= 0L){
+            log.info("Received invalid request body, timestamp or amount may not be negative: {}", transactionRestDTO);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);    
         }
         
