@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StatisticsRestDTO {
-    private long min;
-    private long max;
-    private long avg;
-    private long sum;
+    private double min;
+    private double max;
+    private double avg;
+    private double sum;
     private long count;
 }
