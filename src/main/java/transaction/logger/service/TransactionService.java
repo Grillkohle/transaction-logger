@@ -32,15 +32,28 @@ public class TransactionService {
             log.info("Received invalid request body, timestamp or amount may not be negative: {}", transactionRestDTO);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);    
         }
+
+        final long now = Instant.now().toEpochMilli();
+        final long timeout;
         
-        if (Instant.now().toEpochMilli() - timestamp > ONE_MINUTE){
+        if (now - timestamp > ONE_MINUTE){
+            // Transaction is older than 60 seconds
             return new ResponseEntity<>(HttpStatus.ACCEPTED);
         }
         
+        if (now - timestamp < 0L){
+            // Transaction is in the future, not supported (at this time)
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        
+        //Transaction may have been anywhere between NOW and 60 seconds ago. It must time out in the remaining time
+        timeout = ONE_MINUTE - (now - timestamp);
+        
         transactionCache.cacheTransaction(timestamp, amount);
         
+        
         // Could probably better be done with a thread pool
-        new CacheUpdateThread(transactionCache, amount, timestamp).start();
+        new CacheUpdateThread(transactionCache, amount, timestamp, timeout).start();
         
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
